@@ -1,0 +1,45 @@
+﻿@using ManagementSystem.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Выполнить вход";
+    Layout = "../Shared/_AccountLayout.cshtml";
+}
+<div class="login-box-body">
+    <p class="login-box-msg">Войдите в свою учетную запись</p>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group has-feedback">
+            @Html.TextBoxFor(m => m.Email, new { type = "email", @class = "form-control", placeholder = "Логин" })
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group has-feedback">
+            @Html.PasswordFor(m => m.Password, new { type = "password", @class = "form-control", placeholder = "Пароль" })
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="checkbox icheck">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        <label for="RememberMe" class="">Запомнить меня</label>
+                    </label>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Вход</button>
+            </div>
+        </div>
+    }
+
+    <div class="social-auth-links text-center">
+        <p>- или -</p>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Войти с Facebook</a>
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Войти с Google+</a>
+    </div> 
+    <a href="@Url.Action("ForgotPassword")">Забыли пароль?</a><br>
+    <a href="@Url.Action("Register")" class="text-center">Регистрация</a> 
+</div>

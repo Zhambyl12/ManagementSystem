@@ -1,0 +1,104 @@
+﻿@model ManagementSystem.Models.DetailsUserViewModel
+@{
+    ViewBag.Title = Model.UserInfo.GetUserFullname();
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- =============================================== -->
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Пользватели</a></li>
+        </ol>
+    </section> 
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        @if (string.IsNullOrEmpty(Model.UserInfo.Photo))
+                        {<img class="profile-user-img img-responsive img-circle" src="~/Content/dist/img/no-photo.png" alt="User profile picture"> }
+                        else
+                        {<img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.UserInfo.Photo)" alt="User profile picture">}
+                        <h3 class="profile-username text-center">@Model.UserInfo.GetUserFullname()</h3>
+                        <p class="text-muted text-center">
+                            <br />
+                        </p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Отдел:</b>
+                                @if (string.IsNullOrEmpty(Model.UserInfo.Department))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">@Model.UserInfo.Department</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Должность:</b>
+                                @if (string.IsNullOrEmpty(Model.UserInfo.Position))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">  @Model.UserInfo.Position</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Работает с:</b>
+                                @if (Model.UserInfo.StartedDate == new DateTime(1900, 1, 1))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">@Convert.ToDateTime(Model.UserInfo.StartedDate).ToString("dd-MM-yyyy")</a>}
+                            </li>
+                        </ul>
+
+                        <a href="#" class="btn btn-primary btn-block"><b>изменить</b></a>
+
+                        <p class="text-success">@ViewBag.StatusMessage</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+
+                        <table class="table">
+                            <tr>
+                                <th colspan="2">Роли</th>
+                            </tr>
+                            @if (Model.RolesList.Count(p => p.Selected) > 0)
+                            {
+                                foreach (var role in Model.RolesList.Where(p => p.Selected))
+                                {
+                                    <tr>
+                                        <td>@role.Text</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <th rowspan="2">Электроники</th>
+                            </tr>
+                            @if (Model.Electronics != null)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Action("Details","Electronics", new { id = Model.Electronics.Id})"> @Model.Electronics.SerialNumber (@Model.Electronics.OS) </a></td>
+                                </tr> 
+                            }
+                            <tr>
+                                <td rowspan="2"> <a href="@Url.Action("AddElectronic", new { Id = Model.UserInfo.Id })" class="btn btn-bitbucket btn-block"><b>Добавить</b></a></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</section>
+
+<!-- =============================================== -->

@@ -1,0 +1,70 @@
+﻿@model ManagementSystem.Models.AddElectronicToUserViewModel
+@using ManagementSystem.Models
+@{
+    ViewBag.Title = "Добавление электроники";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    List<Electronics> electronics = ViewBag.Electronics;
+}
+
+
+<!-- =============================================== -->
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Профиль</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken() 
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.UserId)
+
+                        <select name="SelectedElectronics" class="form-control">
+                            @{
+                                var last = (Model.Electronics != null )
+                                    ? Model.Electronics
+                                    : null;
+                                if (last == null)
+                                {
+                                    <option value="" selected>-</option>
+                                }
+                                foreach (var elc in Model.ElectronicsList)
+                                {
+                                    if (last != null && last.Id.ToString() == elc.Value)
+                                    {
+                                        <option value="@elc.Value" selected>@elc.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@elc.Value">@elc.Text</option>
+                                    }
+                                }
+
+                            }
+                        </select>
+                            <br />
+                            <div class="form-group"> 
+                                <input type="submit" value="Сохранить" class="btn btn-success" /> 
+                            </div> 
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<!-- =============================================== -->

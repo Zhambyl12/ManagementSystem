@@ -1,0 +1,65 @@
+﻿@model ManagementSystem.Models.Electronics
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- =============================================== -->
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Пользватели</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.SerialNumber):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.SerialNumber)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.Title):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.Title)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.CPU):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.CPU)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.RAM):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.RAM)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.DiskSize):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.DiskSize)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.DiskType):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.DiskType)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.Video):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.Video)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@Html.DisplayNameFor(model => model.OS):</b>
+                                <a class="pull-right">@Html.DisplayFor(model => model.OS)</a>
+                            </li>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                </div>
+    </section>
+</section>

@@ -1,0 +1,50 @@
+﻿@model ManagementSystem.Models.AddPhoneNumberViewModel
+@{
+    ViewBag.Title = "Номер телефона";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- =============================================== -->
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Manage")"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="@Url.Action("Index")">Профиль</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Добавление номера телефона</h3>
+                    </div>
+                    @using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { role = "form" }))
+                    {
+                        <div class="box-body">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Number)
+                                @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Добавить</button>
+                            <a href="@Url.Action("Index")" class="pull-right btn btn-primary">Назад</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

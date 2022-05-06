@@ -1,0 +1,98 @@
+﻿@model ManagementSystem.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Создать";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- =============================================== -->
+
+<div class="content-wrapper"> 
+
+    <section class="content-header">
+        <h1>
+            Пользователь
+            <small>создание</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Пользователи</a></li>
+            <li class="active">Создание</li>
+        </ol>
+    </section>
+
+    <section class="content"> 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Создать пользователь</h3> 
+                    </div>
+                    @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                <div class="box-body">
+                    <div class="form-group">
+                        @Html.ValidationSummary("", new { @class = "text-error" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName)
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName)
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MiddleName)
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Department)
+                        @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Position)
+                        @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2">
+                            Выберите роль
+                        </label>
+                        <div class="col-md-10">
+                            @foreach (var item in (SelectList)ViewBag.RoleId)
+                            {
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="SelectedRoles" value="@item.Value"> @Html.Label(item.Value, new { @class = "control-label" })
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Создать</button>
+                            <a href="@Url.Action("Index")" class="btn btn-primary pull-right">Назад</a>
+                        </div>
+                    } 
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

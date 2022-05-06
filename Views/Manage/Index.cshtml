@@ -1,0 +1,91 @@
+﻿@model ManagementSystem.Models.IndexViewModel
+@{
+    ViewBag.Title = "Управление";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<!-- =============================================== -->
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Профиль</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        @if (string.IsNullOrEmpty(Model.UserInfo.Photo))
+                        {<img class="profile-user-img img-responsive img-circle" src="~/Content/dist/img/no-photo.png" alt="User profile picture" style="height:100px;object-fit:cover;"> }
+                        else
+                        {<img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.UserInfo.Photo)" alt="User profile picture"  style="height:100px;object-fit:cover;">}
+                        <h3 class="profile-username text-center">@Model.UserInfo.GetUserFullname()</h3>
+                        <p class="text-muted text-center">
+                            <br /> 
+                        </p> 
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Отдел:</b>
+                                @if (string.IsNullOrEmpty(Model.UserInfo.Department))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">@Model.UserInfo.Department</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Должность:</b>
+                                @if (string.IsNullOrEmpty(Model.UserInfo.Position))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">  @Model.UserInfo.Position</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Работает с:</b>
+                                @if (Model.UserInfo.StartedDate == new DateTime(1900, 1, 1))
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">@Convert.ToDateTime(Model.UserInfo.StartedDate).ToString("dd-MM-yyyy")</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Дата рождения:</b>
+                                @if (Model.UserInfo.BirthDate == null)
+                                {<a class="pull-right">Не установлен</a>}
+                                else
+                                {<a class="pull-right">@Convert.ToDateTime(Model.UserInfo.BirthDate).ToString("dd-MM-yyyy")</a>}
+                            </li>
+                            <li class="list-group-item">
+                                <b>Почта:</b>
+                                <a class="pull-right">@Model.UserInfo.Email</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Номер телефона:</b>
+                                <a class="pull-right">@Model.UserInfo.PhoneNumber</a>
+                            </li>
+                        </ul>
+
+                        <a href="@Url.Action("EditProfile")" class="btn btn-primary btn-block"><b>изменить</b></a>
+
+                        <p class="text-success">@ViewBag.StatusMessage</p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Пароль:</b>
+                                @if (Model.HasPassword)
+                                {<a class="pull-right" href="@Url.Action("ChangePassword")">Изменить</a>}
+                                else
+                                {<a class="pull-right" href="@Url.Action("SetPassword")">Установить</a>}
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

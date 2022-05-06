@@ -1,0 +1,148 @@
+﻿@model ManagementSystem.Models.ExtraEditUserViewModel
+
+@{
+    ViewBag.Title = "Изменить данные";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link href="~/Content/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+<!-- =============================================== -->
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">Пользователи</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@ViewBag.Title</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Photo)
+                                <input name="photo" id="PhotoFile" type="file" accept="image/*" onchange="document.getElementById(phototype).src = window.URL.createObjectURL(this.files[0])" style="display:none;">
+                                @if (string.IsNullOrEmpty(Model.Photo))
+                                {<img class="profile-user-img img-responsive img-circle" src="~/Content/dist/img/no-photo.png" style="cursor:pointer;height:100px;object-fit:cover;" alt="User profile picture" id="AddPhoto">}
+                                else
+                                { <img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.Photo)" style="cursor:pointer;height:100px;object-fit:cover;" alt="User profile picture" id="ChangePhoto">}
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName)
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MiddleName)
+                                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MiddleName)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BirthDate)
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" name="BirthDate" value="@Model.BirthDate" class="form-control" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BirthDate)
+                            </div>
+
+                            <div class="form-group"> 
+                                @Html.LabelFor(model => model.Department)
+                                @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Department)
+                            </div>
+                            
+                            <div class="form-group"> 
+                                @Html.LabelFor(model => model.Position)
+                                @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Position)
+                            </div>
+                            
+                            <div class="form-group"> 
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2">
+                                    Выберите роль
+                                </label>
+                                <div class="col-md-10">
+                                    @foreach (var item in Model.RolesList)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected"> @Html.Label(item.Value, new { @class = "control-label" })
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- =============================================== -->
+@section Scripts{ 
+    <script src="~/Content/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/Content/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="~/Content/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script>
+        var phototype = ""; 
+        $(function () { 
+            $("#datemask").inputmask("dd-mm-yyyy", { "placeholder": "дд-мм-гггг" });
+            $("[data-mask]").inputmask(); 
+            $('#AddPhoto').click(function () {
+                phototype = "AddPhoto";
+                $('#PhotoFile').click();
+            });
+            $('#ChangePhoto').click(function () {
+                phototype = "ChangePhoto";
+                $('#PhotoFile').click();
+            }); 
+        });  
+    </script> 
+}
