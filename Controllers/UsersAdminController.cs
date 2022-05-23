@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ManagementSystem.Controllers
 { 
-    [Authorize(Roles = "HR-Manager")]
+    [Authorize(Roles = "HR-manager")]
     public class UsersAdminController : Controller
     {
         public ApplicationDbContext db = new ApplicationDbContext();
@@ -89,9 +89,9 @@ namespace ManagementSystem.Controllers
                     StartedDate= DateTime.Now.Date
                 };
                  
-                var adminresult = await UserManager.CreateAsync(user, "Test1234**");
+                var adminresult = await UserManager.CreateAsync(user, "Test1234!");
 
-                await UserManager.SendEmailAsync(user.Id, "Регистрация", "Ваш пароль: Test1234**");
+                await UserManager.SendEmailAsync(user.Id, "Регистрация", "Ваш пароль: Test1234!");
 
                 //Add User to the selected Roles 
                 if (adminresult.Succeeded)
@@ -283,6 +283,7 @@ namespace ManagementSystem.Controllers
                 BirthDate = user.BirthDate,
                 Department = user.Department,
                 Position = user.Position,
+                Photo = user.Photo,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),

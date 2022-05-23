@@ -1,6 +1,6 @@
 ﻿@model ManagementSystem.Models.RoleViewModel
 @{
-    ViewBag.Title = "Создать роль";
+    ViewBag.Title = "Изменить";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -10,13 +10,12 @@
 
     <section class="content-header">
         <h1>
-            Создание роли
-            <small></small>
+           &nbsp;
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
-            <li><a href="#">Роли</a></li>
-            <li class="active">Создать</li>
+            <li><a href="@Url.Action("Index")">Роли</a></li>
+            <li class="active">Изменить</li>
         </ol>
     </section>
 
@@ -25,7 +24,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Создать роль</h3>
+                        <h3 class="box-title">@ViewBag.Title</h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                             <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -34,21 +33,26 @@
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+
                         <div class="box-body">
+
                             <div class="form-group">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            </div>
+                            </div> 
+
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Name)
-                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Name)
-                            </div>
+                            </div>  
                         </div>
                         <div class="box-footer">
                             <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> назад</a>
                             <button type="submit" class="btn btn-success pull-right">  сохранить <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     }
+
                 </div>
             </div>
         </div>

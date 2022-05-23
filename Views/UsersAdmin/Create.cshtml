@@ -1,11 +1,11 @@
 ﻿@model ManagementSystem.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Создать";
+    ViewBag.Title = "Создать пользователь";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <!-- =============================================== -->
 
-<div class="content-wrapper"> 
+<div class="content-wrapper">
 
     <section class="content-header">
         <h1>
@@ -19,78 +19,90 @@
         </ol>
     </section>
 
-    <section class="content"> 
+    <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-primary">
+                <div class="box box-primary"> 
                     <div class="box-header with-border">
-                        <h3 class="box-title">Создать пользователь</h3> 
+                        <h3 class="box-title">@ViewBag.Title</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                        </div> 
                     </div>
                     @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                <div class="box-body">
-                    <div class="form-group">
-                        @Html.ValidationSummary("", new { @class = "text-error" })
-                    </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.ValidationSummary("", new { @class = "text-error" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.LastName)
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.FirstName)
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName)
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.MiddleName)
-                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MiddleName)
+                                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Email)
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Department)
-                        @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Department)
+                                <select class="form-control" name="Department" id="Department">
+                                    <option value="" selected>Выберите департамент</option>
+                                    <option value="HR-Department">HR отдел</option>
+                                    <option value="IT-Department">IT отдел</option>
+                                    <option value="Accountant">Бухгалтерия</option>
+                                    <option value="Administration">Администрация</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Position)
-                        @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Position)
+                                <select class="form-control" name="Position" id="Position">
+                                    <option value="" selected>Выберите должность</option>
+                                    <option value="HR-manager">HR менеджер</option>
+                                    <option value="IT-spec">IT специалист</option>
+                                    <option value="Accountant">Бухгалтер</option>
+                                    <option value="Admin">Директор</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group">
-                        <label class="col-md-2">
-                            Выберите роль
-                        </label>
-                        <div class="col-md-10">
-                            @foreach (var item in (SelectList)ViewBag.RoleId)
-                            {
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="SelectedRoles" value="@item.Value"> @Html.Label(item.Value, new { @class = "control-label" })
-                                    </label>
-                                </div>
-                            }
+                            <div class="form-group">
+                                <label>Выберите роль</label>
+                                @foreach (var item in (SelectList)ViewBag.RoleId)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected"> @Html.Label(item.Value, new { @class = "control-label" })
+                                        </label>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
-                </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Создать</button>
-                            <a href="@Url.Action("Index")" class="btn btn-primary pull-right">Назад</a>
+                            <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> назад</a>
+                            <button type="submit" class="btn btn-success pull-right">  сохранить <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
-                    } 
+                    }
                 </div>
             </div>
         </div>

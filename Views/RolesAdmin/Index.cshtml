@@ -38,7 +38,7 @@
                         <tr>
                             <th>
                                 Код
-                            </th> 
+                            </th>
                             <th>
 
                             </th>
@@ -49,11 +49,34 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
-                                </td> 
+                                </td>
                                 <td>
                                     <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary btn-xs">изменить</a>
-                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-success btn-xs">подробнее</a>
-                                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-xs">удалить</a>
+                                    @*<a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#@item.Id-Modal">удалить</a>*@
+                                    <button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#@item.Name-Modal">удалить</button>
+                                     
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="@item.Name-Modal" tabindex="-1" role="dialog" aria-labelledby="@item.Name-ModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">@item.Name</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы хотите удалить роль @item.Name?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="/RolesAdmin/Delete" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="text" name="Id" value="@item.Id" class="invisible" />
+                                                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">нет</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">да</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -71,5 +94,5 @@
 
     </section>
 </div>
-
+ 
 <!-- =============================================== --> 

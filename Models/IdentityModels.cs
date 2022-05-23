@@ -36,11 +36,8 @@ namespace ManagementSystem.Models
         [Display(Name = "Фото")]
         public string Photo { get; set; } 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        {
-            // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Здесь добавьте утверждения пользователя
-            
+        { 
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie); 
             return userIdentity;
         }
 
@@ -53,7 +50,7 @@ namespace ManagementSystem.Models
     {
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) {} 
         public static ApplicationDbContext Create() =>  new ApplicationDbContext();
-
+        public DbSet<Requests> Requests { get; set; }
         public DbSet<Electronics> Electronics { get; set; }
 
     }
@@ -86,10 +83,42 @@ namespace ManagementSystem.Models
         public string Video { get; set; }
         [Required]
         [Display(Name = "ОС")]
-        public string OS { get; set; }
-
+        public string OS { get; set; } 
         public Guid? UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
-     
+
+    public class Requests
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+         
+        [Required]
+        [Display(Name = "Дата создание")]
+        public DateTime StartedDate { get; set; }
+         
+        [Display(Name = "Дата завершение")]
+        public DateTime? FinishedDate { get; set; }
+         
+        public Guid UserId { get; set; }
+        public Guid ExecutorId { get; set; }
+        public Guid? SignerId { get; set; }
+        public Guid? SignedDate { get; set; }
+         
+        [Display(Name = "Название документа")]
+        public string DocName { get; set; }
+       
+        [Display(Name = "Ссылка на документ")]
+        public string DocUrl { get; set; }
+
+        [Required]
+        [Display(Name = "Процесс")]
+        public string ProcessType { get; set; }
+        [Required]
+        [Display(Name = "Статус")]
+        public string Status { get; set; }
+        
+    }
+
 }

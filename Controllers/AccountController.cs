@@ -163,7 +163,7 @@ namespace ManagementSystem.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
 
-                    return RedirectToAction("Index", "Test");
+                    return RedirectToAction("Index", "Welcome");
                 }
                 AddErrors(result);
             }
@@ -449,7 +449,7 @@ namespace ManagementSystem.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Balanced", "Electronics");
+            return RedirectToAction("Index", "Welcome");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

@@ -112,7 +112,8 @@ namespace ManagementSystem.Controllers
                 FirstName = user.FirstName,
                 MiddleName = user.MiddleName,
                 BirthDate = user.BirthDate,
-                Photo = user.Photo
+                Photo = user.Photo,
+                PhoneNumber = user.PhoneNumber
             }) ; 
         }
 

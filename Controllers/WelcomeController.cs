@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System; 
+using System.Data.Entity; 
+using System.Net; 
 using System.Web.Mvc;
 using ManagementSystem.Models;
 
 namespace ManagementSystem.Controllers
 {
-    public class testController : Controller
+    [Authorize]
+    public class WelcomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: test
+         
         public ActionResult Index()
         {
-            return View(db.Electronics.ToList());
+            return View();
         }
 
         // GET: test/Details/5

@@ -1,3 +1,6 @@
 ﻿table.electronics-list > tbody > tr > td {
     vertical-align: middle;
 }
+.bg-white{
+    background-color:white !important;
+}

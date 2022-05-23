@@ -13,7 +13,7 @@ using ManagementSystem.Models;
 
 namespace ManagementSystem.Controllers
 {
-    [Authorize(Roles = "HR-Manager")]
+    [Authorize(Roles = "HR-manager")]
     public class RolesAdminController : Controller
     {
         public RolesAdminController()

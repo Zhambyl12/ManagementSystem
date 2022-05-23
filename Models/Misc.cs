@@ -12,15 +12,17 @@ namespace ManagementSystem.Models
         public static string MachineName;
         private static ApplicationDbContext db;
         public static ApplicationUser CurrentUser;
-        private static Random random;
+        private static Random random; 
+
         static Misc()
         {
             db = new ApplicationDbContext();
             CurrentUser = db.Users.Where(p => p.Email.Equals(HttpContext.Current.User.Identity.Name)).FirstOrDefault();
             MachineName = HttpContext.Current.Server.MachineName;
-            random = new Random();
+            random = new Random(); 
         }
-
+        public static int GetUsersCount() { db = new ApplicationDbContext(); return db.Users.Count(); }
+        public static int GetRolesCount() { db = new ApplicationDbContext(); return db.Roles.Count(); }
         public static List<ApplicationUser> GetUsers()
         {
             return db.Users.ToList();

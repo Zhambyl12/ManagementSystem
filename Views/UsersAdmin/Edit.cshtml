@@ -11,12 +11,11 @@
 
     <section class="content-header">
         <h1>
-            @ViewBag.Title
-            <small></small>
+            &nbsp;
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
-            <li><a href="#">Пользователи</a></li>
+            <li><a href="@Url.Action("Index")">Пользователи</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -47,9 +46,9 @@
                                 @Html.LabelFor(model => model.Photo)
                                 <input name="photo" id="PhotoFile" type="file" accept="image/*" onchange="document.getElementById(phototype).src = window.URL.createObjectURL(this.files[0])" style="display:none;">
                                 @if (string.IsNullOrEmpty(Model.Photo))
-                                {<img class="profile-user-img img-responsive img-circle" src="~/Content/dist/img/no-photo.png" style="cursor:pointer;height:100px;object-fit:cover;" alt="User profile picture" id="AddPhoto">}
+                                {<img class="profile-user-img img-responsive img-circle" src="~/Content/dist/img/no-photo.png" style="cursor: pointer; height: 160px; width: 160px; object-fit: cover;" alt="User profile picture" id="AddPhoto">}
                                 else
-                                { <img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.Photo)" style="cursor:pointer;height:100px;object-fit:cover;" alt="User profile picture" id="ChangePhoto">}
+                                { <img class="profile-user-img img-responsive img-circle" src="@Url.Content(Model.Photo)" style="cursor: pointer; height: 160px; width: 160px; object-fit: cover;" alt="User profile picture" id="ChangePhoto">}
                             </div>
 
                             <div class="form-group">
@@ -79,43 +78,52 @@
                                 @Html.ValidationMessageFor(model => model.BirthDate)
                             </div>
 
-                            <div class="form-group"> 
+                            <div class="form-group">
                                 @Html.LabelFor(model => model.Department)
-                                @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
+                                <select class="form-control" name="Department" id="Department">
+                                    <option value="" selected>Выберите департамент</option>
+                                    <option value="HR-Department">HR отдел</option>
+                                    <option value="IT-Department">IT отдел</option>
+                                    <option value="Accountant">Бухгалтерия</option>
+                                    <option value="Administration">Администрация</option>
+                                </select>
                                 @Html.ValidationMessageFor(model => model.Department)
                             </div>
-                            
-                            <div class="form-group"> 
+
+                            <div class="form-group">
                                 @Html.LabelFor(model => model.Position)
-                                @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+                                <select class="form-control" name="Position" id="Position">
+                                    <option value="" selected>Выберите должность</option>
+                                    <option value="HR-manager">HR менеджер</option>
+                                    <option value="IT-spec">IT специалист</option>
+                                    <option value="Accountant">Бухгалтер</option>
+                                    <option value="Admin">Директор</option>
+                                </select>
                                 @Html.ValidationMessageFor(model => model.Position)
                             </div>
-                            
-                            <div class="form-group"> 
+
+                            <div class="form-group">
                                 @Html.LabelFor(model => model.Email)
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Email)
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2">
-                                    Выберите роль
-                                </label>
-                                <div class="col-md-10">
-                                    @foreach (var item in Model.RolesList)
-                                    {
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected"> @Html.Label(item.Value, new { @class = "control-label" })
-                                            </label>
-                                        </div>
-                                    }
-                                </div>
+                                <label>Выберите роль</label>  
+                                @foreach (var item in Model.RolesList)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected"> @Html.Label(item.Value, new { @class = "control-label" })
+                                        </label>
+                                    </div>
+                                }
                             </div>
 
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> назад</a>
+                            <button type="submit" class="btn btn-success pull-right">  сохранить <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     }
 
@@ -126,15 +134,15 @@
 </div>
 
 <!-- =============================================== -->
-@section Scripts{ 
+@section Scripts{
     <script src="~/Content/plugins/input-mask/jquery.inputmask.js"></script>
     <script src="~/Content/plugins/input-mask/jquery.inputmask.extensions.js"></script>
     <script src="~/Content/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script>
-        var phototype = ""; 
-        $(function () { 
+        var phototype = "";
+        $(function () {
             $("#datemask").inputmask("dd-mm-yyyy", { "placeholder": "дд-мм-гггг" });
-            $("[data-mask]").inputmask(); 
+            $("[data-mask]").inputmask();
             $('#AddPhoto').click(function () {
                 phototype = "AddPhoto";
                 $('#PhotoFile').click();
@@ -142,7 +150,7 @@
             $('#ChangePhoto').click(function () {
                 phototype = "ChangePhoto";
                 $('#PhotoFile').click();
-            }); 
-        });  
-    </script> 
+            });
+        });
+    </script>
 }
