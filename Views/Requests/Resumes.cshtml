@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ManagementSystem.Models.Requests>
+
+@{
+    ViewBag.Title = "Заявки";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    int k = 1;
+}
+<!-- =============================================== -->
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            &nbsp;
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Главное</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+            <li class="active">Список</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>@Html.ActionLink("Создать заявку", "Create")</p>
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Все заявки</h3>
+                        <div class="box-tools">
+                            <div class="input-group" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Поиск">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-hover electronics-list">
+                            <tr>
+                                <th>№</th>
+                                <th>@Html.DisplayNameFor(model => model.StartedDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                <th>@Html.DisplayNameFor(model => model.UserFIO)</th>
+                                <th>@Html.DisplayNameFor(model => model.ExecutorFIO)</th>
+                                <th>@Html.DisplayNameFor(model => model.DocName)</th>
+                                <th>@Html.DisplayNameFor(model => model.SignerFIO)</th>
+                                <th>@Html.DisplayNameFor(model => model.SignedDate)</th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@k</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserFIO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExecutorFIO)
+                                    </td>
+                                    <td> 
+                                        <a href="@Url.Content(item.DocUrl)" class="btn btn-link">@item.DocName</a> 
+                                    </td>
+                                    @if (string.IsNullOrEmpty(item.SignerFIO))
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SignerFIO)
+                                        </td>
+                                    }
+                                    @if (string.IsNullOrEmpty(item.SignedDate))
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SignedDate)
+                                        </td>
+                                    } 
+                                </tr>
+                                k++;
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- =============================================== -->

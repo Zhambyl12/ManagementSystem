@@ -205,6 +205,14 @@
     <Compile Include="Migrations\202205231349576_InitialCreate4.Designer.cs">
       <DependentUpon>202205231349576_InitialCreate4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205231821500_INITIALCREATE5.cs" />
+    <Compile Include="Migrations\202205231821500_INITIALCREATE5.Designer.cs">
+      <DependentUpon>202205231821500_INITIALCREATE5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205231823088_INITIALCREATE6.cs" />
+    <Compile Include="Migrations\202205231823088_INITIALCREATE6.Designer.cs">
+      <DependentUpon>202205231823088_INITIALCREATE6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -1105,6 +1113,9 @@
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="Views\Requests\Resumes.cshtml" />
+    <Content Include="Views\Requests\Contracts.cshtml" />
+    <Content Include="Views\Requests\Applications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1134,6 +1145,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205231349576_InitialCreate4.resx">
       <DependentUpon>202205231349576_InitialCreate4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205231821500_INITIALCREATE5.resx">
+      <DependentUpon>202205231821500_INITIALCREATE5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205231823088_INITIALCREATE6.resx">
+      <DependentUpon>202205231823088_INITIALCREATE6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

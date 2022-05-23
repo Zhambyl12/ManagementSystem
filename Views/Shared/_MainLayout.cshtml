@@ -127,12 +127,12 @@
                                 <small class="label pull-right bg-green">@Misc.GetUsersCount()</small>
                             </a>
                         </li>
-                        <li><a href="@Url.Action("Resumes","UsersAdmin")"><i class="fa fa-circle-o text-red"></i><span>Резюме</span></a></li>
-                        <li><a href="@Url.Action("Contracts","UsersAdmin")"><i class="fa fa-circle-o text-yellow"></i><span>Договора</span></a></li>
-                        <li><a href="@Url.Action("Applications","UsersAdmin")"><i class="fa fa-circle-o text-aqua"></i><span>Приказы</span></a></li>
-                        <li><a href="@Url.Action("Create","Requests")"><i class="fa fa-plus text-gray"></i><span>создать</span></a></li>
-                    }
 
+                    }
+                    <li><a href="@Url.Action("Resumes","Requests")"><i class="fa fa-circle-o text-red"></i><span>Резюме</span></a></li>
+                    <li><a href="@Url.Action("Contracts","Requests")"><i class="fa fa-circle-o text-yellow"></i><span>Договора</span></a></li>
+                    <li><a href="@Url.Action("Applications","Requests")"><i class="fa fa-circle-o text-aqua"></i><span>Приказы</span></a></li>
+                    <li><a href="@Url.Action("Create","Requests")"><i class="fa fa-plus text-gray"></i><span>создать</span></a></li>
                 </ul>
             </section> 
         </aside>

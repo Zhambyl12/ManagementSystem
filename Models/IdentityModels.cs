@@ -100,11 +100,17 @@ namespace ManagementSystem.Models
          
         [Display(Name = "Дата завершение")]
         public DateTime? FinishedDate { get; set; }
-         
+        [Display(Name = "ФИО пользователя")]
+        public string UserFIO { get; set; }
         public Guid UserId { get; set; }
+        [Display(Name = "ФИО создателя")]
+        public string ExecutorFIO { get; set; }
         public Guid ExecutorId { get; set; }
+        [Display(Name = "ФИО директора")]
+        public string SignerFIO { get; set; }
         public Guid? SignerId { get; set; }
-        public Guid? SignedDate { get; set; }
+        [Display(Name = "Дата подписа")]
+        public string SignedDate { get; set; }
          
         [Display(Name = "Название документа")]
         public string DocName { get; set; }
@@ -117,7 +123,7 @@ namespace ManagementSystem.Models
         public string ProcessType { get; set; }
         [Required]
         [Display(Name = "Статус")]
-        public string Status { get; set; }
+        public string Status { get; set; } 
         
     }
 

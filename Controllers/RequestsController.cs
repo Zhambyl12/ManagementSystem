@@ -18,6 +18,7 @@ namespace ManagementSystem.Controllers
         // GET: Requests
         public ActionResult Index()
         {
+            db = new ApplicationDbContext();
             return View(db.Requests.ToList());
         }
 
@@ -54,24 +55,31 @@ namespace ManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartedDate,FinishedDate,UserId,ExecutorId,SignerId,SignedDate,DocName,DocUrl,ProcessType,Status")] Requests requests, HttpPostedFileBase File)
-        { 
+        public ActionResult Create([Bind(Include = "Id,UserId,DocName,ProcessType,Status")] Requests requests, HttpPostedFileBase File)
+        {
+            db = new ApplicationDbContext();
             if (ModelState.IsValid)
             {
                 requests.Id = Guid.NewGuid();
                 requests.StartedDate = DateTime.Now;
-                requests.ExecutorId = new Guid(User.Identity.GetUserId());
+                var user = Misc.GetUser(requests.UserId.ToString());
+                requests.UserFIO = user.GetUserFullname();
+                var executor = Misc.GetUser(User.Identity.GetUserId());
+                requests.ExecutorId =new Guid(executor.Id);
+                requests.ExecutorFIO = executor.GetUserFullname();
+                string generatename = requests.ProcessType+"_" + requests.StartedDate.ToString("HH-mm-ss_dd.MM.yyyy");
                 if (File != null && File.ContentLength > 0)
-                    requests.DocUrl = Misc.SaveFileToUser(File, requests.UserId.ToString(), requests.ProcessType + requests.StartedDate.ToString("HH:mm:ss_dd.MM.yyyy"));
+                    requests.DocUrl = Misc.SaveFileToUser(File, requests.UserId.ToString(), generatename);
                 else
                     goto next;
-                requests.Status = "На рассмотрении";
+                requests.Status = "На рассмотрении"; 
+                
                 db.Requests.Add(requests);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Resumes");
             }
             next:
-            db = new ApplicationDbContext();
+           
             ViewBag.Users = db.Users.Select(x => new SelectListItem()
             {
                 Selected = false,
@@ -145,6 +153,37 @@ namespace ManagementSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Resumes()
+        {
+            db = new ApplicationDbContext();
+            var data = db.Requests
+                .Where(p => p.ProcessType.Equals("Resumes") && p.ExecutorId.ToString().Equals(Misc.CurrentUser.Id))
+                .OrderByDescending(t => t.StartedDate)
+                .ToList();
+            
+            return View(data);
+        }
+        public ActionResult Contracts()
+        {
+            db = new ApplicationDbContext();
+            var data = db.Requests
+                .Where(p => p.ProcessType.Equals("Contracts") && p.ExecutorId.ToString().Equals(Misc.CurrentUser.Id))
+                .OrderByDescending(t => t.StartedDate)
+                .ToList();
+            
+            return View(data);
+        }
+        public ActionResult Applications()
+        {
+            db = new ApplicationDbContext();
+            var data = db.Requests
+                .Where(p => p.ProcessType.Equals("Applications") && p.ExecutorId.ToString().Equals(Misc.CurrentUser.Id))
+                .OrderByDescending(t => t.StartedDate)
+                .ToList();
+            
+            return View(data);
         }
     }
 }
