@@ -14,17 +14,17 @@ namespace ManagementSystem.Controllers
     public class ElectronicsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         public ActionResult Balanced()
         {
             return View(Misc.GetAllElectronics());
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         public ActionResult Ordered()
         {
             return View(Misc.GetAllElectronics());
         }
-        [Authorize(Roles ="IT-Specialist, HR-Manager")]
+        [Authorize(Roles ="IT-spec, HR-manager")]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -38,12 +38,12 @@ namespace ManagementSystem.Controllers
             }
             return View(electronics);
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec,HR-manager")]
         public ActionResult Create()
         {
             return View();
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec,HR-manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,SerialNumber,Title,CPU,RAM,DiskSize,DiskType,Video,OS")] Electronics electronics)
@@ -58,7 +58,7 @@ namespace ManagementSystem.Controllers
 
             return View(electronics);
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -72,7 +72,7 @@ namespace ManagementSystem.Controllers
             }
             return View(electronics);
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,SerialNumber,Title,CPU,RAM,DiskSize,DiskType,Video,OS")] Electronics electronics)
@@ -85,7 +85,7 @@ namespace ManagementSystem.Controllers
             }
             return View(electronics);
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace ManagementSystem.Controllers
             }
             return View(electronics);
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
@@ -109,7 +109,7 @@ namespace ManagementSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "IT-Specialist")]
+        [Authorize(Roles = "IT-spec")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

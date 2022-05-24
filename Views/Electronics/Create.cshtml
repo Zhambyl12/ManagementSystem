@@ -1,14 +1,13 @@
 ﻿@model ManagementSystem.Models.Electronics
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Создание заявки на электронику";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <div class="content-wrapper"> 
     <section class="content-header">
         <h1>
-            General Form Elements
-            <small>Preview</small>
+            &nbsp;
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -21,8 +20,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Quick Example</h3>
-                        <p>@Html.ActionLink("Назад к списку", "Index")</p>
+                        <h3 class="box-title">@ViewBag.Title</h3> 
                     </div>
                     @using (Html.BeginForm(new { role = "form" }))
                     {
@@ -79,7 +77,8 @@
 
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">добавить</button>
+                            <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> назад</a>
+                            <button type="submit" class="btn btn-success pull-right">  сохранить <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     } 
                 </div>
